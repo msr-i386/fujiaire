@@ -1,0 +1,28 @@
+#!/bin/sh
+
+before="きにてりをグジズゼダッデネバパビピブプベペボポ"
+after="りかくとゼパピにしビツダブガはプポデボバグジズ"
+before_pl="(くだ|下)さい"
+after_pl="ンス"
+before_loading="読み*込み*中*"
+after_loading="藏年"
+
+replace_fujiaire() {
+  echo ${@} | \
+  sed -r -e "s/${before_pl}/${after_pl}/g" \
+         -e "s/${before_loading}/${after_loading}/g" \
+         -e "y/${before}/${after}/"
+}
+
+if [ "${#}" -eq 0 ]; then
+  while read line ; do
+    replace_fujiaire ${line}
+  done
+  exit 0
+elif [ "${1}" = "--help" ]; then
+  echo "usage: fujiaire {--help,[string ...]}"
+  exit 0
+else
+  replace_fujiaire ${@}
+  exit 0
+fi
