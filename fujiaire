@@ -15,7 +15,7 @@ replace_fujiaire() {
 }
 
 if [ "${#}" -eq 0 ]; then
-  while read line ; do
+  while read line || [ -n ${line} ] ; do
     replace_fujiaire ${line}
   done
   exit 0
